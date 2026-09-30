@@ -9,7 +9,23 @@ $lista_servicios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 // Seleccionar registros de portafolio
 $sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio`");
 $sentencia->execute();
-$lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
+$lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// Seleccionar registros de entradas
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_entradas`");
+$sentencia->execute();
+$lista_entradas=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// Seleccionar registros de equipo
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_equipo`");
+$sentencia->execute();
+$lista_equipo=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// Seleccionar registros de configuración
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_config`");
+$sentencia->execute();
+$lista_config=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +35,7 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Agency - Start Bootstrap Theme</title>
+        <title>Sitio Web Tecnológico TECH STORE</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -34,18 +50,19 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
+                <a class="navbar-brand" href="#page-top">
+                <img src="assets/img/navbar-logo.png" alt="Logo" style="width: 200px !important; height: auto !important;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portafolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">Acerca de nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contáctanos</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,17 +70,17 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+                <div class="masthead-subheading"><?php echo $lista_config[0]['valor']; ?></div>
+                <div class="masthead-heading text-uppercase"><?php echo $lista_config[1]['valor']; ?></div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="<?php echo $lista_config[3]['valor']; ?>"><?php echo $lista_config[2]['valor']; ?></a>
             </div>
         </header>
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase"><?php echo $lista_config[4]['valor']; ?></h2>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_config[5]['valor']; ?></h3>
                 </div>
                 <div class="row text-center">
                     <?php foreach($lista_servicios as $registros){ ?>
@@ -83,8 +100,8 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Portafolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase"><?php echo $lista_config[6]['valor']; ?></h2>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_config[7]['valor']; ?></h3>
                 </div>
                 <div class="row">
 
@@ -151,8 +168,8 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase"><?php echo $lista_config[8]['valor']; ?></h2>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_config[9]['valor']; ?></h3>
                 </div>
                 <ul class="timeline">
                     <li>
@@ -198,7 +215,7 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
                     <li class="timeline-inverted">
                         <div class="timeline-image">
                             <h4>
-                                Be Part
+                                <?php echo $lista_config[10]['valor']; ?>
                                 <br />
                                 Of Our
                                 <br />
@@ -213,8 +230,8 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <section class="page-section bg-light" id="team">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase"><?php echo $lista_config[11]['valor']; ?></h2>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_config[12]['valor']; ?></h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
@@ -276,8 +293,8 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contact Us</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase"><?php echo $lista_config[13]['valor']; ?></h2>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_config[14]['valor']; ?></h3>
                 </div>
                 <!-- * * * * * * * * * * * * * * *-->
                 <!-- * * SB Forms Contact Form * *-->
@@ -340,11 +357,11 @@ $lista_portfolio=$sentencia->fetchAll(PDO::FETCH_ASSOC)
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2026</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $lista_config[15]['valor']; ?>" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $lista_config[16]['valor']; ?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $lista_config[17]['valor']; ?>" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
                         <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>

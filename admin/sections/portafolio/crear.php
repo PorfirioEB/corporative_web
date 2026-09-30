@@ -1,7 +1,7 @@
 <?php 
 include("../../db.php");
 if($_POST){
-    // Recepcionamos los valoresd del formulario
+    // Recepcionamos los valores del formulario
     $titulo=(isset($_POST['titulo']))?$_POST['titulo']:"";
     $subtitulo=(isset($_POST['subtitulo']))?$_POST['subtitulo']:"";
     $imagen=(isset($_FILES['imagen']['name']))?$_FILES['imagen']['name']:"";

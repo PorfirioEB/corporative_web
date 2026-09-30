@@ -9,15 +9,19 @@ if(isset($_GET['txtID'])){
     $sentencia=$conexion->prepare("SELECT imagen FROM tbl_portafolio WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia->execute();
-    $registro_imagen=$sentencia->fetch(PDO::FETCH_LAZY);
 
-    if(isset($registro_imagen["imagen"])){
-        if(file_exists("../../../assets/img/portfolio/".$registro_imagen["imagen"])){
-            unlink("../../../assets/img/portfolio/".$registro_imagen["imagen"]);
 
+    $registro_imagen = $sentencia->fetch(PDO::FETCH_LAZY);
+
+    if (
+        isset($registro_imagen["imagen"]) &&
+        !empty($registro_imagen["imagen"])
+    ) {
+        $ruta = "../../../assets/img/portfolio/" . $registro_imagen["imagen"];
+
+        if (file_exists($ruta) && is_file($ruta)) {
+            unlink($ruta);
         }
-
-
     }
 
 
@@ -73,7 +77,7 @@ include("../../templates/header.php"); ?>
                     <td scope="col">
                         <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['id']; ?>" role="button">Editar</a>
                         |
-                        <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['id']; ?>" role="button">Eliminar</a>
+                        <a class="btn btn-danger" href="#" onclick="confirmarEliminar(event, '<?php echo $registros['id']; ?>')" role="button">Eliminar</a>
                 </td>
                 </tr>
                 <?php } ?>

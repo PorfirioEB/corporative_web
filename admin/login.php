@@ -1,4 +1,35 @@
-<?php include("./db.php"); ?>
+<?php
+session_start();
+if($_POST){
+include("./db.php");
+
+    // Recepcionamos los valores del formulario
+    $usuario=(isset($_POST['usuario']))?$_POST['usuario']:"";
+    $password=(isset($_POST['password']))?$_POST['password']:"";
+
+    // Seleccionar registros
+    $sentencia=$conexion->prepare("SELECT *, count(*) as n_usuario 
+            FROM `tbl_usuarios`
+            WHERE usuario=:usuario
+            AND password=:password
+            ");
+    $sentencia->bindParam(":usuario",$usuario);
+    $sentencia->bindParam(":password",$password);
+    $sentencia->execute();
+
+    $lista_usuarios=$sentencia->fetch(PDO::FETCH_LAZY);
+    
+    if($lista_usuarios['n_usuario']>0){
+        $_SESSION['usuario']=$lista_usuarios['usuario'];
+        $_SESSION['logueado']=true;
+        header("Location:index.php");
+    }else{
+        $mensaje="El usuario o contraseña son INCORRECTOS";
+    }
+
+}
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -33,10 +64,30 @@
                     </div>
                     <div
                         class="col-4">
+                        <br/><br/>
+                        <?php if(isset($mensaje)){ ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close">
+                            </button>
+                            <strong>ERROR:</strong> <?php echo $mensaje;?>
+                        </div>
+                        <?php } ?>
                     <div class="card">
                         <div class="card-header">Login</div>
                         <div class="card-body">
                         
+                        <script>
+                            var alertList = document.querySelectorAll(".alert");
+                            alertList.forEach(function (alert) {
+                                new bootstrap.Alert(alert);
+                            });
+                        </script>
+                        
+
                         <form action="" method="post">
 
                         <div class="mb-3">
@@ -51,12 +102,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="contrasenia" class="form-label">Contraseña</label>
+                            <label for="password" class="form-label">Contraseña</label>
                             <input
                                 type="password"
                                 class="form-control"
-                                name="contrasenia"
-                                id="contrasenia"
+                                name="password"
+                                id="password"
                                 aria-describedby="helpId"
                                 placeholder="contraseña"
                             />
@@ -64,7 +115,14 @@
                         </div>
                         
 
-                        <a name="" id="" class="btn btn-primary" href="index.php" role="button">Entrar</a>
+                        <input
+                            name=""
+                            id=""
+                            class="btn btn-primary"
+                            type="submit"
+                            value="Entrar"
+                        />
+                        
 
                         </form>
 

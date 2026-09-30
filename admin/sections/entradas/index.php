@@ -1,5 +1,11 @@
 <?php
 include("../../db.php");
+
+// Seleccionar registros
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_entradas`");
+$sentencia->execute();
+$lista_portafolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 include("../../templates/header.php");
 ?>
 

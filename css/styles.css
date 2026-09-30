@@ -384,7 +384,8 @@ button,
 [type=button],
 [type=reset],
 [type=submit] {
-  -webkit-appearance: button;
+-webkit-appearance: button;
+appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -443,6 +444,7 @@ legend + * {
 [type=search] {
   outline-offset: -2px;
   -webkit-appearance: textfield;
+  appearance: textfield;
 }
 
 /* rtl:raw:
@@ -464,6 +466,7 @@ legend + * {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
+  appearance: button;
 }
 
 output {
@@ -10920,8 +10923,9 @@ p {
     transition: font-size 0.3s ease-in-out;
   }
   #mainNav .navbar-brand img {
-    height: 2rem;
-    transition: height 0.3s ease-in-out;
+    width: 300px;
+    height: auto;
+    transition: width 0.3s ease-in-out;
   }
   #mainNav.navbar-shrink {
     padding-top: 1rem;
@@ -10933,7 +10937,8 @@ p {
   }
   #mainNav.navbar-shrink .navbar-brand svg,
   #mainNav.navbar-shrink .navbar-brand img {
-    height: 1.5rem;
+    width: 250px;
+    height: auto;
   }
   #mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
@@ -10941,6 +10946,7 @@ p {
   #mainNav .navbar-nav .nav-item:last-child {
     margin-right: 0;
   }
+  
 }
 header.masthead {
   padding-top: 10.5rem;

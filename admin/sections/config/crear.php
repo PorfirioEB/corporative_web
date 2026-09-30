@@ -1,3 +1,69 @@
-<?php include("../../templates/header.php"); ?>
-Crear configuración
+<?php 
+include("../../db.php");
+
+if($_POST){
+
+    // Recepcionamos los valoresd del formulario
+    $nombreconfig=(isset($_POST['nombreconfig']))?$_POST['nombreconfig']:"";
+    $valor=(isset($_POST['valor']))?$_POST['valor']:"";
+    
+    $sentencia=$conexion->prepare("INSERT INTO `tbl_config` (`id`, `nombreconfig`, `valor`) 
+    VALUES (NULL, :nombreconfig, :valor);");
+
+    $sentencia->bindParam(":nombreconfig",$nombreconfig);
+    $sentencia->bindParam(":valor",$valor);
+
+    $sentencia->execute();
+
+    $mensaje="Registro agregado con éxito.";
+    header("Location:index.php?mensaje=".$mensaje);
+}
+
+include("../../templates/header.php"); 
+?>
+
+<div class="card">
+    <div class="card-header">
+        Configuración
+    </div>
+    <div class="card-body">
+
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="nombreconfig" class="form-label">Nombre:</label>
+            <input
+                type="text"
+                class="form-control"
+                name="nombreconfig"
+                id="nombreconfig"
+                aria-describedby="helpId"
+                placeholder="Nombre de la configuración"
+            />
+            
+        </div>
+         <div class="mb-3">
+            <label for="valor" class="form-label">Valor:</label>
+            <input
+                type="text"
+                class="form-control"
+                name="valor"
+                id="valor"
+                aria-describedby="helpId"
+                placeholder="Valor de la configuración"
+            />
+         </div>
+
+    <button type="submit" class="btn btn-success">Agregar</button>
+
+    <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
+        
+    </form>
+        
+    </div>
+    <div class="card-footer text-muted">
+        
+    </div>
+</div>
+
+
 <?php include("../../templates/footer.php"); ?>
